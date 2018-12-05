@@ -32,7 +32,7 @@
 					<h5>You May Not:</h5>
 					<ol type="1">
 						<li>Attempt to gain access to the Service (It's not like we store anything, there's nothing to access)</li>
-						<li>Attempt to harm the Site or impede its ability to provide the Service. Including, but not limited to, DDOS, MITM, XSS, or any other attacks which could harm the Site or anybody using the Service.</li>
+						<li>Attempt to harm the Site or impede its ability to provide the Service.</li>
 					</ol>
 					<h4>Termination</h4>
 					<p>We may terminate or suspend access to our Service immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.</p>
