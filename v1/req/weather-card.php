@@ -93,10 +93,10 @@
 											
 											// Weird Korea-ism where when reporting CAVOK, no visibility is reported
 											if (is_numeric($vis)) {														
-												$vis = round(intval($vis) / 1609.34, 2);														
+												$vis = round(intval($vis) / 1609.34, 1);														
 											} else {
 												// 9999m = 6.21 SM
-												$vis = 6.21;
+												$vis = 6.2;
 											}
 											
 											// Clouds
@@ -257,13 +257,11 @@
 							
 							// Initialize "previous" variables
 							// Highest Vis possible (9999m = 6.21SM)
-							$previous_vis = 6;
+							$previous_vis = 6.2;
 							// Impossibly high ceiling
 							$previous_ceiling = 99999;
 							$previous_coverage = "No Ceiling";
-							
-							log_debugmsg("ICAO: $icao");
-							
+														
 							// Go through each TAF
 							foreach($taf_array as $t) {
 								
@@ -283,11 +281,6 @@
 									$wind = $time;					
 									$time = substr($type, 2, 4);
 								}
-								/*if($icao == "KDEN") {
-									log_debugmsg("ICAO: $icao");
-									log_debugmsg("TAF: $t");
-									log_debugmsg("TAF Vis: $vis");
-								}*/
 								
 								// Split the time into start and end
 								$time_array = explode("/", $time);
@@ -318,19 +311,45 @@
 								if ($end_day < date("d")) {
 									$end = date("mdyH", strtotime("+1 month", mktime($end_hour, 0, 0, date("n"), $end_day, date("Y"))));
 								}
-																										
-								// Check TAF Visibility
-								// Sometimes there are no winds, so check to see if that's the case
-								if(strlen($wind) <= 4) {
-									$vis = $wind;
-								}
+																																
+								// Check TAF Visibility								
+								$sm = strpos($t, "SM");
 								
-								// If there is no vis, use the previous visibility, this works because the PREVAILING TAF always has visibility
-								if(is_numeric($vis)) {
-									$vis = intval($vis);
-									$vis = round($vis / 1609.34);
+								if($sm === false) {
+									// Sometimes there are no winds, so check to see if that's the case
+									if(strlen($wind) <= 4) {
+										$vis = $wind;
+									}
+									
+									// If there is no vis, use the previous visibility, this works because the PREVAILING TAF always has visibility
+									if(is_numeric($vis)) {
+										$vis = intval($vis);
+										$vis = round($vis / 1609.34, 1);
+									} else {
+										$vis = $previous_vis;
+									}
 								} else {
-									$vis = $previous_vis;
+									$vis = substr($t, $sm - 6, 6);
+									
+									$space_count = substr_count($vis, " ");
+									
+									if($space_count > 1) {
+										// We're good
+										// Example
+										// _1_1/2SM
+									} else {
+										// Example
+										// 1/2SM
+										$vis = trim(substr($vis, 3));
+																			
+										// If the TAF reports greater than 6SM Visibility, report something that the code will recognize and display
+										// "Unrestricted Vis"
+										if($vis == "P6") {
+											$vis = 6.2;
+										} else {
+											$vis = intval(substr($vis, 0, 1)) / intval(substr($vis, 2));
+										}
+									}
 								}
 								
 								// Now set the previous visibility to this one only if the group is not TEMPO
@@ -400,26 +419,21 @@
 								// TAF is valid now
 								if($type != "TEMPO" && $start <= $now) {
 									
-									log_debugmsg("Non tempo");
 									$taf1 = $t;
-									$taf1_vis = $vis."SM";
+									$taf1_vis = $vis." SM";
 									$taf1_ceiling = $ceiling;
 									$taf1_coverage = $coverage;
 									
 									if($ceiling < $ALTERNATE_CEILING_REQUIREMENT || $vis < $ALTERNATE_VISIBILITY_REQUIREMENT) {
-										log_debugmsg("Danger");
 										$taf1_level = "danger";
 									} else if($ceiling < $CEILING_REQUIRES_ALTERNATE || $vis < $VISIBILITY_REQUIRES_ALTERNATE) {
-										log_debugmsg("warning");
 										$taf1_level = "warning";
 									} else {
-										log_debugmsg("Success");
 										$taf1_level = "success";
 									}
 								} else if($type == "TEMPO" && $start <= $now && $end > $now) {
-									log_debugmsg("Tempo");
 									$taf1 = $t;
-									$taf1_vis = $vis."SM";
+									$taf1_vis = $vis." SM";
 									$taf1_ceiling = $ceiling;
 									$taf1_coverage = $coverage;
 									
@@ -436,7 +450,7 @@
 								// TAF is valid in 1 hour
 								if ($type != "TEMPO" && $start <= $now_plus1) {
 									$taf2 = $t;
-									$taf2_vis = $vis."SM";
+									$taf2_vis = $vis." SM";
 									$taf2_ceiling = $ceiling;
 									$taf2_coverage = $coverage;
 									
@@ -449,7 +463,7 @@
 									}
 								} if($type == "TEMPO" && $start <= $now_plus1 && $end > $now_plus1) {
 									$taf2 = $t;
-									$taf2_vis = $vis."SM";
+									$taf2_vis = $vis." SM";
 									$taf2_ceiling = $ceiling;
 									$taf2_coverage = $coverage;
 									
@@ -465,7 +479,7 @@
 								// TAF is valid in 2 hours
 								if ($type != "TEMPO" && $start <= $now_plus2) {
 									$taf3 = $t;
-									$taf3_vis = $vis."SM";
+									$taf3_vis = $vis." SM";
 									$taf3_ceiling = $ceiling;
 									$taf3_coverage = $coverage;
 									
@@ -478,7 +492,7 @@
 									}
 								} else if($type == "TEMPO" && $start <= $now_plus2 && $end > $now_plus2) {
 									$taf3 = $t;
-									$taf3_vis = $vis."SM";
+									$taf3_vis = $vis." SM";
 									$taf3_ceiling = $ceiling;
 									$taf3_coverage = $coverage;
 									
@@ -494,7 +508,7 @@
 								// TAF is valid in 3 hours
 								if ($type != "TEMPO" && $start <= $now_plus3) {
 									$taf4 = $t;
-									$taf4_vis = $vis."SM";
+									$taf4_vis = $vis." SM";
 									$taf4_ceiling = $ceiling;
 									$taf4_coverage = $coverage;
 									
@@ -507,7 +521,7 @@
 									}
 								} else if($type == "TEMPO" && $start <= $now_plus3 && $end > $now_plus3) {
 									$taf4 = $t;
-									$taf4_vis = $vis."SM";
+									$taf4_vis = $vis." SM";
 									$taf4_ceiling = $ceiling;
 									$taf4_coverage = $coverage;
 									
@@ -523,7 +537,7 @@
 								// TAF is valid in 4 hours
 								if ($type != "TEMPO" && $start <= $now_plus4) {
 									$taf5 = $t;
-									$taf5_vis = $vis."SM";
+									$taf5_vis = $vis." SM";
 									$taf5_ceiling = $ceiling;
 									$taf5_coverage = $coverage;
 									
@@ -536,7 +550,7 @@
 									}
 								} else if($type == "TEMPO" && $start <= $now_plus4 && $end > $now_plus4) {
 									$taf5 = $t;
-									$taf5_vis = $vis."SM";
+									$taf5_vis = $vis." SM";
 									$taf5_ceiling = $ceiling;
 									$taf5_coverage = $coverage;
 									
@@ -547,7 +561,30 @@
 									} else {
 										$taf5_level = "success";
 									}
-								}							
+								}
+
+								// Change visibility of 9999 to "Unrestricted Vis"
+								if($taf1_vis == "6.2 SM") {
+									$taf1_vis = "Unrestricted Vis";
+								}
+								
+								if($taf2_vis == "6.2 SM") {
+									$taf2_vis = "Unrestricted Vis";
+								}
+								
+								if($taf3_vis == "6.2 SM") {
+									$taf3_vis = "Unrestricted Vis";
+								}
+								
+								if($taf4_vis == "6.2 SM") {
+									$taf4_vis = "Unrestricted Vis";
+								}
+								
+								if($taf5_vis == "6.2 SM") {
+									$taf5_vis = "Unrestricted Vis";
+								}
+									
+								
 							}					
 							
 							// If there are no valid TAFs for the time, then put in some nice text
