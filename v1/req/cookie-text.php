@@ -1,0 +1,1 @@
+By using SOF WX's services you agree to our <a href="privacy">Privacy Policy</a> and <a href="cookies">Cookie Policy</a>. You also agree to the transfer of any data outside the EU for the performance of these services.

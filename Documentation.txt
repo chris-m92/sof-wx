@@ -1,0 +1,36 @@
+===============================================================================================================================================================================
+DOCUMENTATION
+===============================================================================================================================================================================
+METAR 	(https://www.aviationweather.gov/dataserver/fields?datatype=metar)
+TAF		(https://www.aviationweather.gov/dataserver/fields?datatype=taf)
+
+LIFR	ceiling below 500 and/or vis less than 1
+IFR		ceiling 500 - 1000 and/or vis 1 - 3 
+MVFR	ceiling 1000 - 3000 and/or vis 3 - 5
+VFR		ceiling > 3000 and vis > 5
+
+USAF VFR	1500' and 3SM
+
+===============================================================================================================================================================================
+AFI 11-202v3 (10 August 2016)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4.15.2.1 Required Weather
+	4.15.2.1.1 Fixed-Wing and Helicopter
+		Prevailing weather for the estimated time of arrival (ETA) +/- 1 hour at destination must be at or above the lowest compatible published landing minimums (TEMPO conditions may be below published minimums at ETA +/- 1 hour) (T-1). Helicopters may reduce visibility by one-half, but no lower than 1/4 SM PV or 1,200 ft RVR (T-1). See paragraph 4.15.3 for alternate requirements (T-1). Exception: MAJCOMs may authorize filing to a destination with weather below the lowest compatible landing minimums, but must establish supplemental recovery procedures such as the use of two or more alternate airports, additional holding fuel, etc.
+		4.15.2.1.1.1
+			For a straight-in or sidestep approach, the forecast weather must meet required visibility minimums (T-1).
+		4.15.2.1.1.2
+			For a circling approach, the forecast weather must meet both the ceiling and prevailing visibility minimums (T-1).
+4.15.3 Requiring an IFR Alternate
+	4.15.3.1. Weather
+		An alterate is required when the worst weather at destination, to include TEMPO conditions, at the ETA +/- 1 hour is less than
+		4.15.3.1.1 Fixed-Wing Aircraft
+			A ceiling of 2,000 ft or a visiblity of 3 SM (T-0).
+		4.15.3.1.2 Helicopters
+			A ceiling of 1,000 ft. (or 400 ft above the lowest compatible approach minimums, whichever is higher) or a visibility of 2 SM (T-0).
+	4.15.3.4 Selecting an Alternate
+		The worst alternate forecast weather conditions for ETA +/- 1 hour, to include TEMPO conditions (except those caused by thunderstorms, rain showers, or snow showers) will meet or exceed:
+		4.15.3.4.1. Fixed-Wing Aircraft. 
+			A ceiling of 1000 ft., or 500 ft. above the lowest compatible minimum, whichever is higher; and a visibility of 2 SM or 1 SM above the lowest compatible minimum, whichever is higher (T-0).
+		4.15.3.4.2. Helicopters. A ceiling of at least 200 ft. above, and a visibility of at least 1 SM above the lowest compatible published landing minimum (T-0).
+===============================================================================================================================================================================
