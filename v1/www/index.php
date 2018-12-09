@@ -1,6 +1,6 @@
 <?php		
-	require("../req/log.php");
-	require("../req/wx-users.php");
+	//require("../req/log.php");
+	//require("../req/wx-users.php");
 	
 	// Weather Required Assumes Fixed Wing
 	$CEILING_REQUIRES_ALTERNATE = 2000;
@@ -169,4 +169,4 @@
 		<?php require("../req/footer.php"); ?>
 	</body>
 </html>
-<?php closelogs(); ?>
+<?php /* closelogs();*/ ?>

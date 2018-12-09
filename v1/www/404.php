@@ -12,8 +12,10 @@
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
 		<!-- Custom CSS -->
+        <!--
 		<link href="http://plan.red6.dynu.net/css/landing-page.css" rel="stylesheet">
 		<link href="http://plan.red6.dynu.net/css/footer.css" rel="stylesheet">
+        -->
 
 		<!-- Favicon -->
 		<!--<link rel="shortcut icon" type="image/png" href="http://mfl.red6.dynu.net/img/favicon.png"/>-->
