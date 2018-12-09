@@ -42,7 +42,7 @@
 // from root. You need to make the appropriate changes
 // for your system.
 
-$PHP_LOGS = "/var/www/plan.red6.dynu.net/v1/logs/";
+//$PHP_LOGS = "/var/www/plan.red6.dynu.net/v1/logs/";
 
 
 $LOG_FILENAME = /*"log_".*/date("Y-m-d").".txt";
