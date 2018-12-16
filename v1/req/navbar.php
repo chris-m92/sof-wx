@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark bg-dark">
-	<a class="navbar-brand" href="/">SOF Planner</a>
+	<a class="navbar-brand" href="../index.php">SOF Planner</a>
 </nav>
 
 <?php // No Script Notice ?>
