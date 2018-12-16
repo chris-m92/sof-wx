@@ -46,7 +46,8 @@ function checkCookie() {
 		$("#form-card").addClass("d-none");
 		
 		// Redirect the user
-		window.location.replace("http://59.13.133.91/?icao=" + icao_list + "&fromSaved=true");					
+        // TODO: This needs to not be hard-coded.
+		window.location.replace("localhost/sof-wx/v1/www/?icao=" + icao_list + "&fromSaved=true");					
 	}
 }
 
